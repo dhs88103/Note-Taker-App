@@ -1,0 +1,22 @@
+{
+    "name": "note-taker-app",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+      "test": "jest",
+      "start": "node server.js"
+    },
+    "keywords": [],
+    "author": "David Singleton",
+    "license": "MIT",
+    "dependencies": {
+      "express": "^4.17.1"
+    },
+    "devDependencies": {
+      "jest": "^26.0.1"
+    },
+    "repository": {
+      "type": "git",
+      "url": ""
+    }
+  }
