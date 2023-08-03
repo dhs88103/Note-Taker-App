@@ -14,11 +14,11 @@ utilize npm install in the terminal
 
 This app allows users to take down and save notes to help them remember important events or plans
 To use the app:
-use command npm run start in the terminal
-click get started
-add a new note by clicking the plus symbol
-type up your title and note
-save the note using the floppy disc icon
+  use command npm run start in the terminal
+  click get started
+  add a new note by clicking the plus symbol
+  type up your title and note
+  save the note using the floppy disc icon
 
 ## license
 
