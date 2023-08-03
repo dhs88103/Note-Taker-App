@@ -1,86 +1,56 @@
-
-const path = require('path');
-const fs = require('fs');
-const util=require('util');
-const uuid= require('uuid');
-const express=require('express');
+const express = require("express");
+const path = require("path");
+const fs = require("util");
+const util = require("util");
+const uuid = require("uuid");
 const router = express.Router();
 
-
-
-//fs promises
-const readFromFile = util.promisify(fs.readFile);
-const writeToFile = (destination, content) =>
-  fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
-    err ? console.error(err) : console.info(`/nData written to ${destination}`)
-  );
-const readAndAppend = (content, file) => {
-  fs.readFile(file, 'utf8', (err, data) => {
+// api reads json file and returns saved notes
+router.get("/notes", (req, res) => {
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
     if (err) {
       console.error(err);
-    } else {
-      const parsedData = JSON.parse(data);
-      parsedData.push(content);
-      writeToFile(file, parsedData);
+      return res.status(500).json("Cannot read file");
+    }
+
+    try {
+      const notes = JSON.parse(data);
+      res.json(notes);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json("Error handling the JSON data");
     }
   });
-};
-
-//read db.json and return saved notes as json
-router.get('/', (req,res) => {
-    console.log(`${req.method} request recieved`);
-    readFromFile('db/db.json').then((data) => res.json(JSON.parse(data)));
-    
 });
 
-//POST /api/notes
-router.post('/', (req, res) => {
-  console.log(`${req.method} request recieved`);
-  const note = req.body;
-  if (note.title && note.text) {
-      let id = uuid.v4();
-      const newNote = {
-          title:note.title,
-          text:note.text,
-          id,
-      };
-      readAndAppend(newNote, 'db/db.json');
-      let response = {
-          status: 'New note successful',
-          body: newNote,
-      };
-      res.json(response);
-      console.log(res.json(response))
-  } else {
-      res.json('Error in posting new note.')
-  }
-  
-});
+// notes api should get a new note to save and then add it into db.json
 
-//DELETE route
-router.delete('/:id', (req, res) => {
-    //read all of the notes from the db.json file, remove the note with given id, then rewrite to the correct file
-    console.log(`${req.params.id} is deleting`);
-    //readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
-    readFromFile('./db/db.json', 'utf-8').then((data) => {
+router.post("/notes", (req, res) => {
+  const newNote = req.body;
+  newNote.id = uuid.v4();
+
+  fs,
+    readFuke("./db/db.json", "utf8", (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json("Cannot read new note");
+      }
+
+      try {
         const notes = JSON.parse(data);
-        let found = notes.some(note => {
-            /*console.log('note id ' + note.id + typeof note.id);
-            console.log('req param ' + (req.params.id) + typeof req.params.id);
-            console.log(note.id === req.params.id)*/
-            return note.id === req.params.id});
-        //console.log(found);
-        
-        if (found){
-            const delNotes = notes.filter(note => note.id !== req.params.id);
-            writeToFile('./db/db.json', delNotes);
-            return res.json(delNotes);
-        }else{
-            res.status(400).json({msg : `Note with id of ${req.params.id} not found`})
-        };
-        
+        notes.push(newNote);
+        fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json("Cannot write the new note");
+          }
+          res.json(newNote);
+        });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json("Error handling the JSON data");
+      }
     });
-    
 });
 
 module.exports = router;
