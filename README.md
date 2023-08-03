@@ -2,7 +2,7 @@
 
 ## Description
 
-Using the starter code give by the challenge, I built routing to get and post notes api.  Using uuid the notes are able to be give id's.
+Using the starter code given by the challenge, I built routing to GET and POST notes api.  Using uuid the notes are able to be given id's.
 
 ## Installation
 
@@ -12,8 +12,13 @@ utilize npm install in the terminal
 
 ## Usage
 
-To use the app, use command npm run start in the terminal, click get started and add a new note by clicking the plus symbol
-type up your title and note and save the note using the floppy disc icon
+This app allows users to take down and save notes to help them remember important events or plans
+To use the app:
+use command npm run start in the terminal
+click get started
+add a new note by clicking the plus symbol
+type up your title and note
+save the note using the floppy disc icon
 
 ## license
 
