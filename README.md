@@ -24,3 +24,8 @@ To use the app:
 
 MIT license
 
+## Screenshot
+
+![Screenshot 2023-08-03 194003](https://github.com/dhs88103/Note-Taker-App/assets/121986372/d7153d7d-6d66-4b8c-9aad-06d63b205da1)
+
+
