@@ -5,7 +5,6 @@ const util = require("util");
 const uuid = require("uuid");
 const router = express.Router();
 
-// GET /api/notes should read the db.json file and return all saved notes as JSON.
 router.get("/notes", (req, res) => {
   fs.readFile("./db/db.json", "utf8", (err, data) => {
     if (err) {
@@ -22,7 +21,7 @@ router.get("/notes", (req, res) => {
     }
   });
 });
-// POST /api/notes should receive a new note to save on the request body, add it to the db.json file,
+
 router.post("/notes", (req, res) => {
   const newNote = req.body;
   newNote.id = uuid.v4();
