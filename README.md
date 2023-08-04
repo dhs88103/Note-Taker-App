@@ -20,9 +20,15 @@ To use the app:
   type up your title and note
   save the note using the floppy disc icon
 
-## license
+## License
 
 MIT license
+
+
+## Deployment link
+
+https://notes-app-dhs-6425c281c3fe.herokuapp.com/
+
 
 ## Screenshot
 
